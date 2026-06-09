@@ -4,13 +4,17 @@ import smtplib
 from dataclasses import dataclass
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from typing import Any
 
 from app.config import settings
+from app.services.email_templates import TemplateContext, select_template
 from app.utils.logger import configure_logger
 
 
 logger = configure_logger("email_service", settings.logs_dir / "email_service.log")
 
+
+# ── Public result type (unchanged) ───────────────────────────────────────────
 
 @dataclass(slots=True)
 class EmailSendResult:
@@ -18,6 +22,8 @@ class EmailSendResult:
     provider: str
     error: str | None = None
 
+
+# ── Composition layer (new: template-based) ───────────────────────────────────
 
 def compose_retention_email(
     *,
@@ -29,54 +35,60 @@ def compose_retention_email(
     engagement_label: str,
     top_reasons: list[str],
     recommended_actions: list[str],
+    # optional behavioural signals — passed through from batch/prediction payload
+    business_signals: dict[str, Any] | None = None,
 ) -> tuple[str, str, str]:
-    reasons_text = "; ".join(top_reasons) if top_reasons else "recent patterns in your account activity"
-    actions_text = (
-        " ".join(f"• {a}" for a in recommended_actions)
-        if recommended_actions
-        else "• Our team is ready to help you get the most value from your subscription."
-    )
-    greeting = user_label.strip() if user_label.strip() else "there"
-    if any("inactive" in r.lower() or "miss" in r.lower() for r in top_reasons):
-        subject = "We Miss You – Let’s Get You Back!"
-    elif risk_level == "High":
-        subject = "We’re here to help — your account matters to us"
-    else:
-        subject = "A quick note from your customer success team"
+    """
+    Select the most relevant retention email template based on the
+    churn reasons already computed by build_reason_candidates(), then
+    render it with real behavioural context.
 
-    text_body = (
-        f"Hi {greeting},\n\n"
-        f"We noticed signals that suggest you might not be getting everything you need from us. "
-        f"Areas we’re focused on helping with: {reasons_text}.\n\n"
-        f"Here’s what we recommend next:\n{actions_text}\n\n"
-        f"Your engagement level appears {engagement_label} and you’re in our “{segment}” segment. "
-        f"If anything feels off with billing, access, or product fit, reply to this email and we’ll prioritize it.\n\n"
-        f"Thank you for being with us.\n\n"
-        f"— {settings.mail_from_name}\n"
+    Returns (subject, plain_text_body, html_body) — same contract as before.
+    """
+    bs = business_signals or {}
+
+    ctx = TemplateContext(
+        to_email=to_email,
+        user_label=user_label.strip() or "there",
+        risk_level=risk_level,
+        segment=segment,
+        engagement_label=engagement_label,
+        top_reasons=top_reasons,
+        recommended_actions=recommended_actions,
+        brand_name=settings.mail_from_name,
+        recency_days=int(bs["recency_days"]) if "recency_days" in bs else None,
+        logins_per_week=float(bs["frequency_logins_per_week"]) if "frequency_logins_per_week" in bs else None,
+        feature_usage_score=float(bs["feature_usage_score"]) if "feature_usage_score" in bs else None,
+        payment_failures=int(bs["payment_failures_90d"]) if "payment_failures_90d" in bs else None,
+        monthly_charges=float(bs["monetary_value"]) if "monetary_value" in bs else None,
+        tenure_months=None,   # enriched below if available in signals
+        service_count=int(bs["service_count"]) if "service_count" in bs else None,
+        contract_type=bs.get("contract_type"),
     )
-    html_body = f"""\
-<html><body style="font-family:system-ui,sans-serif;line-height:1.5;color:#1a1a1a">
-<p>Hi {greeting},</p>
-<p>We noticed signals that suggest you might not be getting everything you need from us.
-<strong>What we’re seeing:</strong> {reasons_text}.</p>
-<p><strong>Recommended next steps:</strong></p>
-<ul>{''.join(f'<li>{a}</li>' for a in recommended_actions) or '<li>Our team is ready to help you get the most value.</li>'}</ul>
-<p>Your <strong>engagement</strong> appears <strong>{engagement_label}</strong> and you’re in the
-<strong>{segment}</strong> segment. Estimated churn risk band: <strong>{risk_level}</strong>
-(probability ~{churn_probability:.0%}).</p>
-<p>If billing, access, or product fit is getting in the way, reply to this email—we’ll prioritize it.</p>
-<p>Thank you for being with us.</p>
-<p>— {settings.mail_from_name}</p>
-</body></html>"""
+
+    template = select_template(top_reasons)
+    logger.info(
+        "EMAIL TEMPLATE | user=%s reasons=%s template=%s",
+        user_label,
+        top_reasons,
+        type(template).__name__,
+    )
+
+    subject   = template.subject(ctx)
+    text_body = template.text_body(ctx)
+    html_body = template.html_body(ctx)
     return subject, text_body, html_body
 
+
+# ── Sending layer (unchanged) ─────────────────────────────────────────────────
 
 def send_email(to_address: str, subject: str, text_body: str, html_body: str) -> EmailSendResult:
     if settings.smtp_user and settings.smtp_password:
         return _send_smtp(to_address, subject, text_body, html_body)
 
     logger.info(
-        "STUB email (no SMTP credentials) | to=%s subject=%s — set GMAIL_ADDRESS + GMAIL_APP_PASSWORD or SMTP_USER + SMTP_PASSWORD",
+        "STUB email (no SMTP credentials) | to=%s subject=%s — "
+        "set GMAIL_ADDRESS + GMAIL_APP_PASSWORD or SMTP_USER + SMTP_PASSWORD",
         to_address,
         subject,
     )
@@ -97,10 +109,10 @@ def _send_smtp(to_address: str, subject: str, text_body: str, html_body: str) ->
 
     msg = MIMEMultipart("alternative")
     msg["Subject"] = subject
-    msg["From"] = f"{settings.mail_from_name} <{settings.mail_from_email}>"
-    msg["To"] = to_address
+    msg["From"]    = f"{settings.mail_from_name} <{settings.mail_from_email}>"
+    msg["To"]      = to_address
     msg.attach(MIMEText(text_body, "plain", "utf-8"))
-    msg.attach(MIMEText(html_body, "html", "utf-8"))
+    msg.attach(MIMEText(html_body, "html",  "utf-8"))
 
     try:
         with smtplib.SMTP(host, port, timeout=60) as server:

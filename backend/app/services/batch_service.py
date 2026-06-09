@@ -187,6 +187,7 @@ def run_batch_job(
                 engagement_label=engagement_label,
                 top_reasons=reasons,
                 recommended_actions=actions,
+                business_signals=business,
             )
             result = send_email(email_str, subject, text_body, html_body)
             email_sent_flag = result.ok
