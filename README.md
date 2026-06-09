@@ -386,6 +386,71 @@ payment_failures_90d, support_tickets_30d, activity_trend_pct
 
 ---
 
+## Notebooks
+
+The `notebooks/` directory contains the original Jupyter notebooks used to develop and validate the ML pipeline. These are the source of truth for the model architecture and are important for understanding how the production system was built.
+
+```
+notebooks/
+├── churn_model.ipynb             # Primary model development notebook
+└── churnpredictordataset.ipynb   # Dataset exploration and model training
+```
+
+### `churn_model.ipynb` — Model Development
+
+This is the canonical notebook where the full training pipeline was designed and validated. It documents every decision that was later productionised into `backend/train_pipeline.py`.
+
+**What it covers:**
+
+| Step | Details |
+|---|---|
+| Data loading | Reads `churn.csv`, drops `customerID`, coerces `TotalCharges` to numeric, fills NaN with median |
+| Target encoding | `Churn` → binary int (Yes=1, No=0) |
+| Feature engineering | `ChargesPerMonth`, `MonthlyToTotal`, `TenureBucket` (0/1/2 buckets), `ServiceCount`, `HighValue`, `ContractRisk` |
+| Encoding | Binary map for gender/yes-no fields; `pd.get_dummies` for multi-class categoricals |
+| Train/test split | 80/20, stratified on `Churn`, `random_state=42` |
+| Class imbalance | SMOTE oversampling applied to training set only |
+| Scaling | `StandardScaler` fit on SMOTE-resampled training data |
+| Base learners | XGBoost (500 est, lr=0.05, depth=6), LightGBM (500 est, lr=0.05, 40 leaves), GradientBoosting (300 est), Random Forest (300 est, balanced) |
+| Meta-learner | `StackingClassifier` with 5-fold CV → `LogisticRegression` |
+| Threshold | `0.35` (not default 0.5) — tuned to improve recall on the minority churn class |
+| Artifacts saved | `ensemble.pkl`, `scaler.pkl`, `preprocessor.pkl`, `feature_columns.pkl` |
+
+**Actual output from the notebook:**
+
+```
+Accuracy : 0.7615  →  76.2%
+ROC-AUC  : 0.8269  →  82.7%
+
+              precision  recall  f1-score  support
+Non-churners    0.88      0.79    0.83      1035
+Churners        0.54      0.70    0.61       374
+
+Confusion matrix:
+[[813  222]
+ [114  260]]
+```
+
+> The 0.35 classification threshold was deliberately chosen over 0.5 to prioritise recall — catching more real churners at the cost of some precision is more valuable for a retention use case.
+
+### `churnpredictordataset.ipynb` — Dataset Exploration
+
+This notebook walks through the same pipeline with a focus on understanding the dataset structure, feature distributions, and class imbalance before model training. It serves as the exploratory foundation for all feature engineering decisions.
+
+### Running the notebooks locally
+
+```bash
+# Install Jupyter if needed
+pip install notebook
+
+# Launch from repo root
+jupyter notebook notebooks/
+```
+
+> The notebooks reference `churn.csv` directly. Either copy `backend/data/churn.csv` into the `notebooks/` directory or update the path in the notebook cell before running.
+
+---
+
 ## Deployment
 
 ### Backend (Docker)
