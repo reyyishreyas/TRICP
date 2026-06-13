@@ -13,7 +13,6 @@
   </p>
 
   <p>
-    <strong>🔗 Live Demo:</strong> <em>— (deploy and add your link here) —</em>
   </p>
 </div>
 
@@ -326,7 +325,7 @@ If left blank, the system runs in stub mode — emails are logged but not sent.
 ### 5. Start the API
 
 ```bash
-# from repo root
+# from backend
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
