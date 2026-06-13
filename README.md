@@ -33,9 +33,8 @@ TRICP bridges the gap between complex machine learning and immediate business ac
 
 | Dashboard | User Analysis | Simulation |
 |-----------|--------------|------------|
-| ![dashboard](https://via.placeholder.com/320x200?text=Dashboard) | ![analysis](https://via.placeholder.com/320x200?text=User+Analysis) | ![sim](https://via.placeholder.com/320x200?text=Simulation) |
+| ![dashboard](https://drive.google.com/file/d/11ODBIdkuhP5_27uDWDmn4Uvw5nkcSjuQ/view?usp=sharing) | ![analysis](https://drive.google.com/file/d/1ZKDXrdmYPSYHWk25zouFJTGx3ME-BhsT/view?usp=sharing) | ![sim](https://drive.google.com/file/d/1TBjSXwNVAXnVMbdVemuTWgD-BKXIliSo/view?usp=sharing) |
 
-> Replace placeholder images with real screenshots after first run.
 
 ---
 
