@@ -1,484 +1,900 @@
 <div align="center">
   <img src="logo.png" alt="TRICP Logo" width="80" height="80" style="border-radius:16px"/>
-  <h1>TRICP</h1>
-  <p><strong>Telecom Retention Intelligence & Churn Predictor</strong></p>
-  <p>Precision churn forecasting and automated retention workflows for telecom businesses.</p>
 
-  <p>
-    <a href="https://github.com/reyyishreyas/churn_predictor"><img src="https://img.shields.io/badge/repo-GitHub-181717?logo=github" alt="GitHub"/></a>
-    <img src="https://img.shields.io/badge/backend-FastAPI-009688?logo=fastapi" alt="FastAPI"/>
-    <img src="https://img.shields.io/badge/frontend-React%20%2B%20Vite-61DAFB?logo=react" alt="React"/>
-    <img src="https://img.shields.io/badge/ML-scikit--learn%20%7C%20XGBoost%20%7C%20LightGBM-F7931E" alt="ML"/>
-    <img src="https://img.shields.io/badge/python-3.11%2B-3776AB?logo=python" alt="Python"/>
-  </p>
+# TRICP
 
-  <p>
-  </p>
+### Telecom Retention Intelligence & Churn Predictor
+
+**An end-to-end AI-powered customer churn prediction platform that combines explainable machine learning, intelligent decision automation, and personalized retention workflows.**
+
+<p>
+  <a href="https://github.com/reyyishreyas/churn_predictor">
+    <img src="https://img.shields.io/badge/repo-GitHub-181717?logo=github" alt="GitHub"/>
+  </a>
+  <img src="https://img.shields.io/badge/backend-FastAPI-009688?logo=fastapi" alt="FastAPI"/>
+  <img src="https://img.shields.io/badge/frontend-React%20%2B%20Vite-61DAFB?logo=react" alt="React"/>
+  <img src="https://img.shields.io/badge/ML-scikit--learn%20%7C%20XGBoost%20%7C%20LightGBM-F7931E" alt="ML"/>
+  <img src="https://img.shields.io/badge/python-3.11%2B-3776AB?logo=python" alt="Python"/>
+</p>
+
 </div>
 
 ---
 
-## What is TRICP?
+# What is TRICP?
 
-TRICP bridges the gap between complex machine learning and immediate business action. It lets you:
+TRICP bridges the gap between machine learning predictions and real business actions.
 
-- **Score individual customers** — enter a customer profile and get an instant churn probability, risk classification, and root-cause breakdown.
-- **Run bulk campaigns** — upload a CSV of your entire user base, score everyone in seconds, and auto-dispatch targeted retention emails to high-risk accounts.
-- **Simulate interventions** — use the what-if simulator to see exactly how changing a contract type, login frequency, or feature usage score would move the churn needle.
-- **Inspect the AI** — the Insights page exposes feature importance rankings and model performance metrics so every decision is explainable.
+Instead of only predicting whether a customer is likely to churn, the platform explains **why** the prediction was made, identifies the most influential churn factors, recommends appropriate retention strategies, and automatically delivers personalized retention emails through an automated workflow.
+
+The application provides an end-to-end AI pipeline that combines:
+
+- Explainable Machine Learning
+- Feature Engineering
+- REST API-based prediction services
+- Automated business decision workflows
+- Personalized customer engagement
+
+TRICP enables businesses to:
+
+- **Predict customer churn** using a production-ready stacking ensemble model.
+- **Explain predictions** through feature-level attribution and root-cause analysis.
+- **Run bulk prediction campaigns** for thousands of customers.
+- **Automatically trigger retention workflows** based on predicted churn drivers.
+- **Evaluate business interventions** using an interactive simulation engine.
+- **Visualize model insights** through performance metrics and feature importance dashboards.
 
 ---
 
-## Demo Screenshots
+# Demo Screenshots
 
 | Dashboard | User Analysis | Simulation |
 |-----------|--------------|------------|
-| ![dashboard](https://drive.google.com/file/d/11ODBIdkuhP5_27uDWDmn4Uvw5nkcSjuQ/view?usp=sharing) | ![analysis](https://drive.google.com/file/d/1ZKDXrdmYPSYHWk25zouFJTGx3ME-BhsT/view?usp=sharing) | ![sim](https://drive.google.com/file/d/1TBjSXwNVAXnVMbdVemuTWgD-BKXIliSo/view?usp=sharing) |
-
-
----
-
-## Core Features
-
-### 1. Single Predict — On-Demand Risk Scoring
-Enter a customer's usage metrics to instantly compute:
-- **Risk Level** — `Low / Medium / High` classification
-- **Churn Probability** — exact percentage from the stacking ensemble
-- **Root-Cause Analysis** — feature-level explanation of which behaviours are driving risk
-- **Recommended Actions** — personalized intervention steps mapped to the top reasons
-
-### 2. Bulk CSV Upload & Automation
-Upload a CSV cohort and TRICP will:
-- Score every row through the full ML pipeline
-- Segment users into risk buckets
-- Auto-dispatch personalised retention emails to qualifying accounts via Gmail SMTP
-- Return an enriched CSV with churn scores, engagement labels, and recommended actions appended per row
-
-### 3. What-If Simulation
-Adjust sliders for login frequency, feature usage, payment failures, and contract type. TRICP recalculates the churn probability in real time and shows you the absolute and relative delta — so your team can evaluate interventions before committing to them.
-
-### 4. Transparent AI — Model Insights
-- **Feature Importance** — ranked bar chart of the top predictors from the stacking ensemble
-- **Model Metrics** — Accuracy, ROC AUC, Precision, and Recall for every trained model
-- **Model Comparison Table** — side-by-side benchmark of Stacking Ensemble vs. Logistic Regression vs. Random Forest
-
-### 5. Personalised Retention Emails
-The email engine selects from **8 scenario-specific templates** based on the strongest detected churn reason — no generic blasts:
-
-| Template | Triggered by |
-|---|---|
-| High-Value Risk | High-spend customer with elevated churn probability |
-| Billing / Payment Issue | Payment failures or Electronic check payment method |
-| Inactivity | Last login ≥ 21 days ago |
-| Early Lifecycle Risk | Tenure ≤ 6 months (onboarding risk) |
-| Price Sensitivity | Monthly charges ≥ $85 |
-| Low Engagement | Logins < 2.5/week or feature usage score < 40 |
-| Low Product Adoption | Fewer than 3 active services |
-| Contract Commitment | Month-to-month contract |
+| ![dashboard](https://drive.google.com/file/d/11ODBIdkuhP5_27uDWDmn4Uvw5nkcSjuQ/view?usp=sharing) | ![analysis](https://drive.google.com/file/d/1ZKDXrdmYPSYHWk25zouFJTGx3ME-BhsT/view?usp=sharing) | ![simulation](https://drive.google.com/file/d/1TBjSXwNVAXnVMbdVemuTWgD-BKXIliSo/view?usp=sharing) |
 
 ---
 
-## Tech Stack
-
-| Layer | Technology |
-|---|---|
-| Backend API | Python 3.11+, FastAPI, Uvicorn |
-| ML Training | scikit-learn, XGBoost, LightGBM, imbalanced-learn (SMOTE) |
-| ML Serving | joblib, Stacking Ensemble (XGB + LGB + GBM + RF → LR meta) |
-| Frontend | React 19, TypeScript, Vite 8 |
-| UI Components | shadcn/ui, Radix UI primitives, Tailwind CSS 3 |
-| Charts | Recharts |
-| Animations | Framer Motion |
-| HTTP Client | Axios |
-| Email | Python SMTP (Gmail / any SMTP provider) |
-| Data | Telco Customer Churn dataset (7,043 records) |
-
----
-
-## Repository Structure
+# AI Decision Pipeline
 
 ```
+Customer Data
+        │
+        ▼
+Feature Engineering
+        │
+        ▼
+Stacking Ensemble Model
+        │
+        ▼
+Churn Probability Prediction
+        │
+        ▼
+Feature Importance Analysis
+        │
+        ▼
+Root Cause Identification
+        │
+        ▼
+Recommendation Engine
+        │
+        ▼
+Email Template Selection
+        │
+        ▼
+SMTP Email Delivery
+```
+
+Rather than sending generic retention campaigns, TRICP first identifies the strongest contributors to churn before selecting the most relevant intervention strategy and email template.
+
+---
+
+# Core Features
+
+## 1. Single Prediction — On-Demand Risk Analysis
+
+Enter a customer's profile to instantly receive:
+
+- **Churn Probability** generated by the trained stacking ensemble model.
+- **Risk Classification** (`Low`, `Medium`, or `High`).
+- **Feature-Level Root Cause Analysis** highlighting the strongest contributors to churn.
+- **Personalized Retention Recommendations** generated by mapping the identified churn factors to predefined business strategies.
+
+This allows customer success teams to understand both the prediction and the reasoning behind it.
+
+---
+
+## 2. Bulk Customer Analysis & Workflow Automation
+
+Upload an entire customer dataset and TRICP automatically:
+
+- Processes every customer through the complete ML prediction pipeline.
+- Predicts churn probability for every record.
+- Segments users into appropriate risk categories.
+- Identifies the dominant churn drivers for each customer.
+- Selects the most suitable retention strategy.
+- Automatically dispatches personalized retention emails using Python SMTP.
+- Generates an enriched CSV containing:
+  - Predicted churn probability
+  - Risk category
+  - Recommended retention strategy
+  - Customer engagement information
+
+This enables large-scale retention campaigns with minimal manual effort.
+
+---
+
+## 3. What-If Simulation
+
+The simulation engine allows business teams to evaluate possible interventions before applying them.
+
+Users can modify attributes such as:
+
+- Contract Type
+- Login Frequency
+- Feature Usage
+- Payment Failures
+- Customer Engagement
+
+The system recalculates churn probability in real time, making it easy to compare how behavioral changes influence customer retention.
+
+---
+
+## 4. Explainable AI Dashboard
+
+TRICP focuses on model transparency rather than treating predictions as black boxes.
+
+The Insights dashboard provides:
+
+- Feature Importance rankings
+- Model Evaluation Metrics
+- Performance Comparison across multiple models
+- Dataset-level analytics
+- Prediction explainability
+
+This allows stakeholders to understand how and why predictions are generated.
+
+---
+
+## 5. Intelligent Retention Recommendation Engine
+
+Rather than generating generic responses, the recommendation engine analyzes the highest contributing churn factors identified by the machine learning model and automatically selects the most appropriate retention strategy.
+
+The system then chooses one of **8 predefined retention email templates**, ensuring that every customer receives a message relevant to their specific churn risk.
+
+| Retention Strategy | Trigger Condition |
+|--------------------|------------------|
+| High-Value Customer | High spending with elevated churn probability |
+| Billing Issue | Payment failures or electronic check payments |
+| Customer Inactivity | Last login ≥ 21 days |
+| Early Lifecycle | Customer tenure ≤ 6 months |
+| Price Sensitivity | Monthly charges ≥ $85 |
+| Low Engagement | Low login frequency or feature usage |
+| Low Product Adoption | Fewer than 3 active services |
+| Contract Commitment | Month-to-month contracts |
+
+The recommendation engine uses feature importance and business rules to map each customer to the most suitable retention workflow.
+
+---
+
+# Technology Stack
+
+| Layer | Technology |
+|-------|------------|
+| Backend | Python, FastAPI, Uvicorn |
+| Frontend | React 19, TypeScript, Vite |
+| Machine Learning | scikit-learn, XGBoost, LightGBM, SMOTE |
+| ML Serving | Joblib, Stacking Ensemble |
+| APIs | REST APIs, FastAPI |
+| Explainability | Feature Importance Analysis |
+| Automation | Rule-Based Recommendation Engine, Python SMTP |
+| Charts | Recharts |
+| UI | Tailwind CSS, shadcn/ui, Radix UI |
+| HTTP Client | Axios |
+| Dataset | Telco Customer Churn Dataset (7,043 Records) |
+
+---
+# Repository Structure
+
+```text
 churn_predictor/
 │
 ├── logo.png                          # TRICP brand logo
 │
 ├── backend/
-│   ├── train_pipeline.py             # Full training script — run once to generate artifacts
+│   ├── train_pipeline.py             # End-to-end ML training pipeline
 │   ├── requirements.txt
-│   ├── .env.example                  # Copy to .env and fill in SMTP credentials
+│   ├── .env.example                  # Environment configuration
 │   ├── Dockerfile
 │   │
 │   ├── app/
-│   │   ├── main.py                   # FastAPI app entry point
+│   │   ├── main.py                   # FastAPI application entry point
 │   │   ├── config/
-│   │   │   └── settings.py           # App settings loaded from .env
+│   │   │   └── settings.py           # Application configuration
 │   │   ├── models/
-│   │   │   ├── preprocessor.py       # ChurnPreprocessor class (fit/transform)
-│   │   │   └── schemas.py            # Pydantic request/response schemas
+│   │   │   ├── preprocessor.py       # Data preprocessing pipeline
+│   │   │   └── schemas.py            # Request & response schemas
 │   │   ├── routes/
-│   │   │   ├── churn.py              # All prediction, batch, simulation, insights endpoints
-│   │   │   └── health.py             # GET /health
+│   │   │   ├── churn.py              # Prediction & analysis endpoints
+│   │   │   └── health.py             # Health check endpoint
 │   │   ├── services/
-│   │   │   ├── artifact_store.py     # Loads .pkl artifacts with caching
-│   │   │   ├── batch_service.py      # CSV parsing, bulk scoring, email dispatch
-│   │   │   ├── email_service.py      # compose_retention_email + SMTP send
-│   │   │   ├── email_templates.py    # 8 scenario templates + selection logic
-│   │   │   ├── engagement_service.py # Engagement score calculation
-│   │   │   ├── explainability_service.py  # Local feature attribution
-│   │   │   ├── insights_service.py   # Dataset-level aggregated metrics
-│   │   │   ├── intervention_engine.py     # Action logging and dispatch simulation
-│   │   │   ├── prediction_service.py # Single-user end-to-end prediction
-│   │   │   ├── recommendation_service.py  # Action → reason mapping
-│   │   │   ├── segmentation_service.py    # User segment classification
-│   │   │   └── simulation_service.py      # What-if comparison logic
+│   │   │   ├── artifact_store.py
+│   │   │   ├── batch_service.py
+│   │   │   ├── email_service.py
+│   │   │   ├── email_templates.py
+│   │   │   ├── engagement_service.py
+│   │   │   ├── explainability_service.py
+│   │   │   ├── insights_service.py
+│   │   │   ├── intervention_engine.py
+│   │   │   ├── prediction_service.py
+│   │   │   ├── recommendation_service.py
+│   │   │   ├── segmentation_service.py
+│   │   │   └── simulation_service.py
 │   │   └── utils/
-│   │       ├── feature_helpers.py    # Business feature derivation, reason candidates
-│   │       └── logger.py             # Structured JSON logging
+│   │       ├── feature_helpers.py
+│   │       └── logger.py
 │   │
-│   ├── artifacts/                    # Generated by train_pipeline.py (not committed)
-│   │   ├── model.pkl                 # Stacking ensemble
+│   ├── artifacts/
+│   │   ├── model.pkl
 │   │   ├── scaler.pkl
 │   │   ├── preprocessor.pkl
 │   │   ├── feature_columns.pkl
 │   │   ├── logistic_regression.pkl
 │   │   ├── random_forest.pkl
-│   │   └── metadata.json             # Feature importance + model metrics
+│   │   └── metadata.json
 │   │
 │   ├── data/
-│   │   └── churn.csv                 # Training dataset (Telco churn, 7,043 rows)
+│   │   └── churn.csv
 │   │
-│   └── logs/                         # Runtime logs (not committed)
-│       ├── action_log.jsonl
-│       ├── batch_email.jsonl
-│       ├── batch_service.log
-│       ├── email_service.log
-│       └── intervention_engine.log
+│   └── logs/
 │
 ├── frontend-react/
 │   ├── src/
-│   │   ├── App.tsx                   # Router + AppLoader
-│   │   ├── main.tsx
-│   │   ├── index.css                 # Global design tokens + CSS variables
-│   │   ├── App.css                   # Page transition animations
-│   │   ├── components/
-│   │   │   ├── AppLoader.tsx         # Branded splash screen on first load
-│   │   │   ├── ParticleCanvas.tsx    # Interactive neural-network particle system
-│   │   │   ├── layout/
-│   │   │   │   └── Layout.tsx        # Sidebar navigation + top header
-│   │   │   └── ui/                   # shadcn/ui component library
 │   │   ├── pages/
-│   │   │   ├── Dashboard.tsx         # Overview + charts + TRICP intro
-│   │   │   ├── UserAnalysis.tsx      # Single prediction form + result panel
-│   │   │   ├── Insights.tsx          # Feature importance + model metrics
-│   │   │   ├── Simulation.tsx        # What-if slider interface
-│   │   │   └── BatchUpload.tsx       # CSV drag-drop + batch job results
-│   │   └── lib/
-│   │       ├── api.ts                # Axios API client
-│   │       └── utils.ts              # Tailwind class merge utility
-│   ├── public/
-│   │   └── logo.png
-│   ├── tailwind.config.js
-│   ├── vite.config.ts
+│   │   ├── components/
+│   │   ├── lib/
+│   │   └── App.tsx
 │   └── package.json
 │
 └── notebooks/
-    ├── churn_model.ipynb             # Original model development notebook
-    └── churnpredictordataset.ipynb   # Exploratory data analysis
+    ├── churn_model.ipynb
+    └── churnpredictordataset.ipynb
 ```
 
 ---
 
-## ML Architecture
+# Machine Learning Architecture
 
-The production model is a **Stacking Ensemble** trained on 7,043 telco customer records.
+TRICP is powered by a **Stacking Ensemble Machine Learning model** trained on the **Telco Customer Churn Dataset (7,043 customer records)**.
+
+The training pipeline focuses on improving prediction accuracy while maintaining model interpretability through feature-level explanations.
 
 ```
-Training pipeline (backend/train_pipeline.py)
-│
-├── Preprocessing
-│   ├── Feature engineering  (ChargesPerMonth, TenureBucket, ServiceCount, ContractRisk, HighValue)
-│   ├── Binary encoding      (gender, Partner, Dependents, PhoneService, PaperlessBilling)
-│   └── One-hot encoding     (Contract, InternetService, PaymentMethod, …)
-│
-├── SMOTE oversampling       (handles class imbalance in training set)
-├── StandardScaler
-│
-├── Base learners
-│   ├── XGBoost              (500 estimators, lr=0.05, max_depth=6)
-│   ├── LightGBM             (500 estimators, lr=0.05, num_leaves=40)
-│   ├── GradientBoosting     (300 estimators, lr=0.05, max_depth=5)
-│   └── Random Forest        (300 estimators, class_weight=balanced)
-│
-└── Meta-learner: Logistic Regression  (5-fold cross-val stack)
+Raw Customer Data
+        │
+        ▼
+Data Cleaning
+        │
+        ▼
+Feature Engineering
+        │
+        ▼
+Categorical Encoding
+        │
+        ▼
+SMOTE Oversampling
+        │
+        ▼
+Feature Scaling
+        │
+        ▼
+Stacking Ensemble
+        │
+        ├── XGBoost
+        ├── LightGBM
+        ├── Gradient Boosting
+        └── Random Forest
+                │
+                ▼
+      Logistic Regression Meta Learner
+                │
+                ▼
+       Churn Probability Prediction
+                │
+                ▼
+ Feature Importance & Root Cause Analysis
 ```
 
-**Current model performance** (classification threshold = 0.35):
+### Feature Engineering
+
+The model derives additional business features including:
+
+- Charges Per Month
+- Tenure Bucket
+- Service Count
+- High Value Customer
+- Contract Risk
+- Monthly-to-Total Charge Ratio
+
+These engineered features improve prediction quality while providing more meaningful explanations.
+
+---
+
+### Handling Class Imbalance
+
+To improve recall for churned customers, the training pipeline applies:
+
+- SMOTE (Synthetic Minority Oversampling Technique)
+- StandardScaler
+- Stratified Train/Test Split
+
+This helps the model better identify customers who are at risk of leaving.
+
+---
+
+### Ensemble Learning
+
+Instead of relying on a single model, TRICP combines predictions from multiple algorithms:
+
+- XGBoost
+- LightGBM
+- Gradient Boosting
+- Random Forest
+
+These predictions are combined using a Logistic Regression meta-learner to generate the final churn probability.
+
+This ensemble approach provides improved robustness and predictive performance compared to individual models.
+
+---
+
+## Model Performance
 
 | Model | Accuracy | ROC AUC | Precision | Recall |
-|---|---|---|---|---|
+|-------|---------:|---------:|---------:|---------:|
 | Stacking Ensemble | 76.9% | 82.7% | 55.0% | 70.1% |
 | Logistic Regression | 74.8% | 84.3% | 51.7% | 77.5% |
 | Random Forest | 74.2% | 82.4% | 51.0% | 75.9% |
 
-> XGBoost and LightGBM are base learners inside the stack. They contribute to ensemble predictions and are not independently benchmarked.
+> XGBoost and LightGBM are used as base learners within the stacking ensemble and contribute to the final prediction.
 
 ---
 
-## API Reference
+# REST API
 
-All endpoints served at `http://localhost:8000`. Interactive docs at `/docs`.
+TRICP exposes a FastAPI backend that provides prediction, simulation, explainability, and batch-processing services through REST APIs.
 
-| Method | Path | Description |
-|---|---|---|
-| `GET` | `/health` | Health check + version |
-| `POST` | `/predict` | Single customer churn score, reasons, and actions |
-| `POST` | `/simulate` | What-if comparison between base and updated user |
-| `POST` | `/batch-predict` | CSV upload → bulk scoring + optional email dispatch |
-| `GET` | `/insights` | Dataset-level metrics, feature importance, engagement distribution |
-| `GET` | `/model-metrics` | Model comparison metrics only |
+Interactive API documentation is available at:
 
-### Example — Single Predict
-
-```bash
-curl -X POST http://localhost:8000/predict \
-  -H "Content-Type: application/json" \
-  -d '{
-    "customer_id": "cust-001",
-    "gender": "Female",
-    "SeniorCitizen": 0,
-    "Partner": "Yes",
-    "Dependents": "No",
-    "tenure": 12,
-    "PhoneService": "Yes",
-    "MultipleLines": "No",
-    "InternetService": "Fiber optic",
-    "OnlineSecurity": "No",
-    "OnlineBackup": "Yes",
-    "DeviceProtection": "No",
-    "TechSupport": "No",
-    "StreamingTV": "Yes",
-    "StreamingMovies": "Yes",
-    "Contract": "Month-to-month",
-    "PaperlessBilling": "Yes",
-    "PaymentMethod": "Electronic check",
-    "MonthlyCharges": 79.90,
-    "TotalCharges": 959.0,
-    "days_since_last_login": 18,
-    "avg_logins_per_week": 2.1,
-    "feature_usage_score": 42.0,
-    "payment_failures_90d": 1
-  }'
+```
+http://localhost:8000/docs
 ```
 
 ---
 
-## Setup & Running Locally
+## API Endpoints
 
-### Prerequisites
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/health` | Application health check |
+| POST | `/predict` | Predict customer churn and generate recommendations |
+| POST | `/simulate` | Compare churn probability before and after changing customer attributes |
+| POST | `/batch-predict` | Bulk prediction and automated retention workflow |
+| GET | `/insights` | Model insights and feature importance |
+| GET | `/model-metrics` | Model evaluation metrics |
+
+---
+
+## Prediction Workflow
+
+Every prediction follows the same workflow:
+
+1. Receive customer information through the REST API.
+2. Preprocess and engineer input features.
+3. Run inference using the trained stacking ensemble.
+4. Compute churn probability.
+5. Identify the most influential features contributing to the prediction.
+6. Map these features to predefined business recommendations.
+7. Select the most suitable retention email template.
+8. Return the prediction, explanations, and recommendations.
+
+---
+
+## Example Prediction Request
+
+```bash
+curl -X POST http://localhost:8000/predict \
+-H "Content-Type: application/json" \
+-d '{
+    "customer_id":"cust-001",
+    "gender":"Female",
+    "SeniorCitizen":0,
+    "Partner":"Yes",
+    "Dependents":"No",
+    "tenure":12,
+    "PhoneService":"Yes",
+    "InternetService":"Fiber optic",
+    "Contract":"Month-to-month",
+    "PaymentMethod":"Electronic check",
+    "MonthlyCharges":79.90,
+    "TotalCharges":959.0,
+    "days_since_last_login":18,
+    "avg_logins_per_week":2.1,
+    "feature_usage_score":42.0,
+    "payment_failures_90d":1
+}'
+```
+
+---
+
+# Setup & Running Locally
+
+## Prerequisites
 
 - Python 3.11+
 - Node.js 18+
 - Git
 
-### 1. Clone
+---
+
+## 1. Clone the Repository
 
 ```bash
 git clone https://github.com/reyyishreyas/churn_predictor.git
+
 cd churn_predictor
 ```
 
-### 2. Backend
+---
+
+## 2. Backend Setup
 
 ```bash
 python3 -m venv venv
-source venv/bin/activate        # Windows: venv\Scripts\activate
+
+source venv/bin/activate
+
+# Windows
+
+venv\Scripts\activate
+
 pip install -r backend/requirements.txt
 ```
 
-### 3. Train the models
+---
 
-Generates all `.pkl` artifacts under `backend/artifacts/`. Skip if artifacts are already present.
+## 3. Train the Machine Learning Model
+
+The training script generates all required model artifacts inside the `backend/artifacts` directory.
 
 ```bash
 python backend/train_pipeline.py
 ```
 
-### 4. Configure environment
+If the artifacts already exist, this step can be skipped.
+
+---
+
+## 4. Configure Environment Variables
 
 ```bash
 cp backend/.env.example backend/.env
 ```
 
-Open `backend/.env` and fill in your SMTP credentials if you want real emails to send:
+Configure your SMTP credentials if email delivery is required.
 
 ```env
 GMAIL_ADDRESS=your@gmail.com
+
 GMAIL_APP_PASSWORD=your-app-password
+
 MAIL_FROM_NAME=Retention Team
+
 CHURN_TRIGGER_THRESHOLD=0.60
-EMAIL_BATCH_MIN_RISK=threshold   # threshold | medium | high
+
+EMAIL_BATCH_MIN_RISK=threshold
 ```
 
-If left blank, the system runs in stub mode — emails are logged but not sent.
+If SMTP credentials are omitted, emails are logged instead of being sent.
 
-### 5. Start the API
+---
+
+## 5. Start the Backend
 
 ```bash
-# from backend
+cd backend
+
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-API available at `http://localhost:8000` · Docs at `http://localhost:8000/docs`
+Backend:
 
-### 6. Start the frontend (new terminal)
+```
+http://localhost:8000
+```
+
+API Documentation:
+
+```
+http://localhost:8000/docs
+```
+
+---
+
+## 6. Start the Frontend
 
 ```bash
 cd frontend-react
+
 npm install
+
 npm run dev
 ```
 
-Frontend available at `http://localhost:5173`
+Frontend:
+
+```
+http://localhost:5173
+```
 
 ---
-
-## Environment Variables
+# Environment Variables
 
 | Variable | Default | Description |
-|---|---|---|
-| `CHURN_TRIGGER_THRESHOLD` | `0.60` | Probability above which interventions fire |
-| `EMAIL_BATCH_MIN_RISK` | `threshold` | `threshold` · `medium` · `high` — controls who gets an email in batch jobs |
-| `GMAIL_ADDRESS` | — | Gmail address used as SMTP sender |
-| `GMAIL_APP_PASSWORD` | — | Gmail App Password (not your login password) |
+|-----------|----------|-------------|
+| `CHURN_TRIGGER_THRESHOLD` | `0.60` | Minimum churn probability required to trigger a retention workflow |
+| `EMAIL_BATCH_MIN_RISK` | `threshold` | Controls which customers receive automated retention emails (`threshold`, `medium`, or `high`) |
+| `GMAIL_ADDRESS` | — | Gmail account used for SMTP email delivery |
+| `GMAIL_APP_PASSWORD` | — | Gmail App Password for SMTP authentication |
 | `SMTP_HOST` | `smtp.gmail.com` | SMTP server hostname |
-| `SMTP_PORT` | `587` | SMTP port |
-| `MAIL_FROM_NAME` | `Retention Team` | Display name in outgoing emails |
-| `EMAIL_MODE` | auto-detected | `smtp` or `stub` |
+| `SMTP_PORT` | `587` | SMTP server port |
+| `MAIL_FROM_NAME` | `Retention Team` | Display name for outgoing emails |
+| `EMAIL_MODE` | Auto | SMTP mode or logging mode |
 
-> **Never commit `backend/.env`** — it is in `.gitignore`.
-
----
-
-## Batch CSV Format
-
-The batch upload endpoint expects a CSV with the following columns:
-
-**Required:**
-```
-user_id (or customer_id), email,
-gender, SeniorCitizen, Partner, Dependents, tenure,
-PhoneService, MultipleLines, InternetService,
-OnlineSecurity, OnlineBackup, DeviceProtection, TechSupport,
-StreamingTV, StreamingMovies, Contract, PaperlessBilling,
-PaymentMethod, MonthlyCharges, TotalCharges
-```
-
-**Optional (behavioural signals — improve accuracy):**
-```
-days_since_last_login, avg_logins_per_week,
-avg_session_duration_minutes, feature_usage_score,
-payment_failures_90d, support_tickets_30d, activity_trend_pct
-```
-
-> The `Churn` column is ignored if present. A `Churn` value of `Yes/No` in your CSV will not affect predictions.
+> **Note:** Never commit your `.env` file to version control.
 
 ---
 
-## Notebooks
+# Batch CSV Format
 
-The `notebooks/` directory contains the original Jupyter notebooks used to develop and validate the ML pipeline. These are the source of truth for the model architecture and are important for understanding how the production system was built.
+The batch prediction endpoint accepts customer datasets in CSV format.
+
+### Required Columns
+
+```text
+user_id (or customer_id)
+email
+gender
+SeniorCitizen
+Partner
+Dependents
+tenure
+PhoneService
+MultipleLines
+InternetService
+OnlineSecurity
+OnlineBackup
+DeviceProtection
+TechSupport
+StreamingTV
+StreamingMovies
+Contract
+PaperlessBilling
+PaymentMethod
+MonthlyCharges
+TotalCharges
+```
+
+---
+
+### Optional Behavioral Features
+
+Providing these additional behavioral features improves prediction quality.
+
+```text
+days_since_last_login
+avg_logins_per_week
+avg_session_duration_minutes
+feature_usage_score
+payment_failures_90d
+support_tickets_30d
+activity_trend_pct
+```
+
+The system ignores the `Churn` column (if present), ensuring predictions remain unbiased.
+
+---
+
+# Explainable AI Workflow
+
+Unlike traditional prediction systems that only return a probability score, TRICP also explains **why** a customer is likely to churn.
+
+For every prediction the system:
+
+1. Generates churn probability.
+2. Identifies the strongest contributing features.
+3. Ranks those features by importance.
+4. Maps important features to predefined retention strategies.
+5. Automatically selects the most appropriate email template.
+6. Dispatches the email through the SMTP workflow.
+
+This makes the prediction process transparent, actionable, and easier for business teams to understand.
+
+---
+
+# Recommendation Workflow
+
+```
+Customer Prediction
+        │
+        ▼
+Identify Highest Impact Features
+        │
+        ▼
+Business Rule Evaluation
+        │
+        ▼
+Retention Strategy Selection
+        │
+        ▼
+Email Template Selection
+        │
+        ▼
+SMTP Email Delivery
+```
+
+Instead of sending generic promotional emails, the recommendation engine uses the model's explanations to determine the most relevant customer intervention.
+
+---
+
+# Notebooks
+
+The `notebooks` directory contains the experiments used during model development and validation.
 
 ```
 notebooks/
-├── churn_model.ipynb             # Primary model development notebook
-└── churnpredictordataset.ipynb   # Dataset exploration and model training
+├── churn_model.ipynb
+└── churnpredictordataset.ipynb
 ```
 
-### `churn_model.ipynb` — Model Development
+These notebooks document the complete machine learning development lifecycle, from exploratory analysis to the final production-ready model.
 
-This is the canonical notebook where the full training pipeline was designed and validated. It documents every decision that was later productionised into `backend/train_pipeline.py`.
+---
 
-**What it covers:**
+## churn_model.ipynb
 
-| Step | Details |
-|---|---|
-| Data loading | Reads `churn.csv`, drops `customerID`, coerces `TotalCharges` to numeric, fills NaN with median |
-| Target encoding | `Churn` → binary int (Yes=1, No=0) |
-| Feature engineering | `ChargesPerMonth`, `MonthlyToTotal`, `TenureBucket` (0/1/2 buckets), `ServiceCount`, `HighValue`, `ContractRisk` |
-| Encoding | Binary map for gender/yes-no fields; `pd.get_dummies` for multi-class categoricals |
-| Train/test split | 80/20, stratified on `Churn`, `random_state=42` |
-| Class imbalance | SMOTE oversampling applied to training set only |
-| Scaling | `StandardScaler` fit on SMOTE-resampled training data |
-| Base learners | XGBoost (500 est, lr=0.05, depth=6), LightGBM (500 est, lr=0.05, 40 leaves), GradientBoosting (300 est), Random Forest (300 est, balanced) |
-| Meta-learner | `StackingClassifier` with 5-fold CV → `LogisticRegression` |
-| Threshold | `0.35` (not default 0.5) — tuned to improve recall on the minority churn class |
-| Artifacts saved | `ensemble.pkl`, `scaler.pkl`, `preprocessor.pkl`, `feature_columns.pkl` |
+This notebook contains the primary machine learning development pipeline.
 
-**Actual output from the notebook:**
+### It includes:
+
+- Dataset preprocessing
+- Missing value handling
+- Target encoding
+- Feature engineering
+- Feature transformation
+- SMOTE oversampling
+- Model training
+- Hyperparameter tuning
+- Ensemble model creation
+- Model evaluation
+- Artifact generation
+
+The notebook served as the foundation for the production training pipeline implemented in `backend/train_pipeline.py`.
+
+---
+
+### Training Pipeline
+
+The notebook performs the following sequence:
 
 ```
-Accuracy : 0.7615  →  76.2%
-ROC-AUC  : 0.8269  →  82.7%
-
-              precision  recall  f1-score  support
-Non-churners    0.88      0.79    0.83      1035
-Churners        0.54      0.70    0.61       374
-
-Confusion matrix:
-[[813  222]
- [114  260]]
+Dataset
+     │
+     ▼
+Cleaning
+     │
+     ▼
+Feature Engineering
+     │
+     ▼
+Encoding
+     │
+     ▼
+SMOTE
+     │
+     ▼
+Scaling
+     │
+     ▼
+Model Training
+     │
+     ▼
+Evaluation
+     │
+     ▼
+Artifact Generation
 ```
 
-> The 0.35 classification threshold was deliberately chosen over 0.5 to prioritise recall — catching more real churners at the cost of some precision is more valuable for a retention use case.
+---
 
-### `churnpredictordataset.ipynb` — Dataset Exploration
+### Feature Engineering
 
-This notebook walks through the same pipeline with a focus on understanding the dataset structure, feature distributions, and class imbalance before model training. It serves as the exploratory foundation for all feature engineering decisions.
+Additional business-oriented features include:
 
-### Running the notebooks locally
+- Charges Per Month
+- Monthly-to-Total Charge Ratio
+- Tenure Buckets
+- Service Count
+- Contract Risk
+- High Value Customer
+
+These engineered features improve prediction quality while making the model easier to interpret.
+
+---
+
+### Model Evaluation
+
+The notebook evaluates multiple algorithms before selecting the final stacking ensemble.
+
+Metrics include:
+
+- Accuracy
+- ROC-AUC
+- Precision
+- Recall
+- F1 Score
+- Confusion Matrix
+
+The final production model is chosen based on overall predictive performance rather than a single metric.
+
+---
+
+## churnpredictordataset.ipynb
+
+This notebook focuses on exploratory data analysis and understanding customer behavior before model training.
+
+It includes:
+
+- Feature distributions
+- Correlation analysis
+- Missing value inspection
+- Target distribution
+- Class imbalance visualization
+- Statistical summaries
+
+These analyses guided the feature engineering decisions used in the production pipeline.
+
+---
+
+## Running the Notebooks
+
+Install Jupyter if required:
 
 ```bash
-# Install Jupyter if needed
 pip install notebook
+```
 
-# Launch from repo root
+Launch:
+
+```bash
 jupyter notebook notebooks/
 ```
 
-> The notebooks reference `churn.csv` directly. Either copy `backend/data/churn.csv` into the `notebooks/` directory or update the path in the notebook cell before running.
-
 ---
 
-## Deployment
+# Deployment
 
-### Backend (Docker)
+## Backend (Docker)
 
 ```bash
 docker build -t tricp-backend ./backend
-docker run -p 8000:8000 --env-file backend/.env tricp-backend
+
+docker run \
+-p 8000:8000 \
+--env-file backend/.env \
+tricp-backend
 ```
 
-### Frontend
-
-```bash
-cd frontend-react
-npm run build          # outputs to frontend-react/dist/
-```
-
-Deploy `dist/` to any static host (Vercel, Netlify, Cloudflare Pages, S3). Set the environment variable:
+Backend API:
 
 ```
-VITE_API_URL=https://your-backend-url.com
+http://localhost:8000
+```
+
+Interactive Documentation:
+
+```
+http://localhost:8000/docs
 ```
 
 ---
 
-## License
+## Frontend
 
-MIT — see `LICENSE` for details. Add a `LICENSE` file if publishing.
+```bash
+cd frontend-react
+
+npm run build
+```
+
+The production build is generated inside:
+
+```
+frontend-react/dist
+```
+
+The frontend can be deployed to platforms such as:
+
+- Vercel
+- Netlify
+- Cloudflare Pages
+- AWS S3
+
+Configure:
+
+```text
+VITE_API_URL=https://your-backend-url.com
+```
+
+to connect the frontend with the deployed FastAPI backend.
+
+---
+
+# Project Highlights
+
+- Production-ready FastAPI backend with REST APIs
+- Explainable Machine Learning pipeline
+- Feature engineering and ensemble learning
+- Automated customer segmentation
+- Intelligent recommendation engine
+- Personalized retention workflow
+- Bulk customer prediction support
+- Interactive business simulation tools
+- Modular backend architecture
+- React + TypeScript frontend
+- Docker-ready deployment
+
+---
+
+# Future Improvements
+
+- Multi-tenant organization support
+- Customer history dashboard
+- Real-time streaming predictions
+- Advanced explainability using SHAP values
+- Configurable retention strategies
+- Multi-channel notifications (Email, SMS, WhatsApp)
+- A/B testing for retention campaigns
+- Model monitoring and drift detection
+
+---
+
+# License
+
+MIT License
+
+See the `LICENSE` file for more information.
+
+---
+
+# Contributing
+
+Contributions, suggestions, and improvements are always welcome.
+
+If you would like to improve the project, feel free to open an issue or submit a pull request.
+
+---
+
+# Author
+
+**Shreyas**
 
 ---
 
 <div align="center">
-  <sub>Built with FastAPI · React · scikit-learn · XGBoost · LightGBM</sub>
+
+### Built with ❤️ using
+
+**FastAPI • React • TypeScript • scikit-learn • XGBoost • LightGBM • Machine Learning**
+
+If you found this project useful, consider ⭐ starring the repository.
+
 </div>
