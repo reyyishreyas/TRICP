@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: tricp-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    envVars:
+      - key: CHURN_TRIGGER_THRESHOLD
+        value: "0.60"
+      - key: EMAIL_BATCH_MIN_RISK
+        value: threshold
+      - key: MAIL_FROM_NAME
+        value: Retention Team
+      # Add these in the Render dashboard — do NOT put real values here:
+      # GMAIL_ADDRESS
+      # GMAIL_APP_PASSWORD
+      # SMTP_HOST
+      # SMTP_PORT

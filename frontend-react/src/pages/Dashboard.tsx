@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { Users, AlertTriangle, Activity, TrendingUp, ArrowUpRight, ArrowDownRight, UserSearch, UploadCloud, FlaskConical, Brain, ChevronRight } from 'lucide-react';
 import {
   PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis,
@@ -8,11 +8,11 @@ import {
 import { getInsights } from '@/lib/api';
 import { NavLink } from 'react-router-dom';
 
-const stagger = {
+const stagger: Variants = {
   hidden: { opacity: 0 },
   show: { opacity: 1, transition: { staggerChildren: 0.08 } },
 };
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 18 },
   show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 340, damping: 26 } },
 };

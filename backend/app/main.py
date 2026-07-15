@@ -1,3 +1,5 @@
+import os
+
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
@@ -12,9 +14,21 @@ app = FastAPI(
     description="Churn prediction API and batch processing.",
 )
 
+# Allow the Vercel frontend + local dev.
+# Set ALLOWED_ORIGINS in Render env vars once you have the Vercel URL,
+# e.g. "https://tricp.vercel.app,http://localhost:5173"
+_raw_origins = os.getenv("ALLOWED_ORIGINS", "")
+_extra = [o.strip() for o in _raw_origins.split(",") if o.strip()]
+ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "http://localhost:3000",
+    *_extra,
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=ALLOWED_ORIGINS,
+    allow_origin_regex=r"https://.*\.vercel\.app",  # covers all Vercel preview URLs
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

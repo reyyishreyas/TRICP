@@ -14,7 +14,7 @@ from app.utils.logger import configure_logger
 logger = configure_logger("email_service", settings.logs_dir / "email_service.log")
 
 
-# ── Public result type (unchanged) ───────────────────────────────────────────
+# Public result type 
 
 @dataclass(slots=True)
 class EmailSendResult:
@@ -23,7 +23,7 @@ class EmailSendResult:
     error: str | None = None
 
 
-# ── Composition layer (new: template-based) ───────────────────────────────────
+# Composition layer
 
 def compose_retention_email(
     *,
@@ -35,7 +35,6 @@ def compose_retention_email(
     engagement_label: str,
     top_reasons: list[str],
     recommended_actions: list[str],
-    # optional behavioural signals — passed through from batch/prediction payload
     business_signals: dict[str, Any] | None = None,
 ) -> tuple[str, str, str]:
     """
@@ -80,7 +79,7 @@ def compose_retention_email(
     return subject, text_body, html_body
 
 
-# ── Sending layer (unchanged) ─────────────────────────────────────────────────
+# Sending layer 
 
 def send_email(to_address: str, subject: str, text_body: str, html_body: str) -> EmailSendResult:
     if settings.smtp_user and settings.smtp_password:
