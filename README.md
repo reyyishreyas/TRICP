@@ -867,14 +867,6 @@ to connect the frontend with the deployed FastAPI backend.
 
 ---
 
-# License
-
-MIT License
-
-See the `LICENSE` file for more information.
-
----
-
 # Contributing
 
 Contributions, suggestions, and improvements are always welcome.
