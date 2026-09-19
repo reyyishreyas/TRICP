@@ -1,0 +1,9 @@
+# Exclude the React frontend from GitHub language statistics.
+# The frontend in frontend-react/ is a generated/vibe-coded UI layer;
+# the actual project logic lives in the Python backend (backend/).
+frontend-react/** linguist-vendored
+
+# Don't count config/assets/lockfiles in language stats.
+frontend-react/package-lock.json linguist-generated
+frontend-react/*.config.* linguist-generated
+*.min.js linguist-generated
